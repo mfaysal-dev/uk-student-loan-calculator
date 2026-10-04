@@ -40,8 +40,10 @@ describe("edge cases", () => {
     expect(repaymentForPeriod(5000, []).total).toBe(0);
   });
   it("rounds down to whole pounds without float errors", () => {
-    // 9% of £100 over the Plan 5 weekly threshold = £9 exactly, not £8
-    expect(repaymentForPeriod(580.76, ["plan5"], "week").total).toBe(9);
+    // £1,065.09 is exactly £500 over the Plan 2 weekly threshold (£565.09): 9% = £45.
+    // Plain floating point gives (1065.09 - 565.09) * 0.09 = 44.999999999999986, which floors to £44.
+    expect((1065.09 - 565.09) * 0.09).toBeLessThan(45);
+    expect(repaymentForPeriod(1065.09, ["plan2"], "week").total).toBe(45);
   });
   it("ignores duplicate plans", () => {
     expect(repaymentForPeriod(3200, ["plan1", "plan1"]).total).toBe(repaymentForPeriod(3200, ["plan1"]).total);
