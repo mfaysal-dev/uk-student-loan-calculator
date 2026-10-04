@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #0f766e;
+  --accent-soft: #ccfbf1;
+}
+
+@theme inline {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body { background: #f8fafc; color: #0f172a; }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.field {
+  @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-base text-slate-900 shadow-sm;
+}
+.field:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 0; }
+.label { @apply mb-1 block text-sm font-medium text-slate-800; }
+.card { @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6; }
+.prose-uk h2 { @apply mt-10 mb-3 text-xl font-bold text-slate-900; }
+.prose-uk h3 { @apply mt-6 mb-2 text-base font-semibold text-slate-900; }
+.prose-uk p, .prose-uk li { @apply leading-7 text-slate-700; }
+.prose-uk p { @apply mb-4; }
+.prose-uk ul { @apply mb-4 list-disc space-y-1 pl-5; }
+.prose-uk a { @apply font-medium text-[var(--accent)] underline underline-offset-2; }
+.prose-uk table { @apply mb-4 w-full border-collapse text-sm; }
+.prose-uk th, .prose-uk td { @apply border-b border-slate-200 px-2 py-2 text-left align-top; }
+.prose-uk th { @apply font-semibold text-slate-900; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
