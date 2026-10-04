@@ -44,6 +44,8 @@ describe("edge cases", () => {
     // Plain floating point gives (1065.09 - 565.09) * 0.09 = 44.999999999999986, which floors to £44.
     expect((1065.09 - 565.09) * 0.09).toBeLessThan(45);
     expect(repaymentForPeriod(1065.09, ["plan2"], "week").total).toBe(45);
+    // ...but snapping to whole pence would be wrong: £499.95 over → 9% = £44.9955, which must stay £44
+    expect(repaymentForPeriod(565.09 + 499.95, ["plan2"], "week").total).toBe(44);
   });
   it("ignores duplicate plans", () => {
     expect(repaymentForPeriod(3200, ["plan1", "plan1"]).total).toBe(repaymentForPeriod(3200, ["plan1"]).total);

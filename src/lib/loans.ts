@@ -46,9 +46,12 @@ export function periodThreshold(yearly: number, period: Period): number {
   return Math.floor((yearly * 100) / PERIODS[period]) / 100;
 }
 
-/** Avoids 0.09 * 509 = 45.809999... style float errors before rounding down. */
+/**
+ * Rounds down to the pound without float errors. Pay and thresholds are whole pence, so
+ * 9% or 6% of the difference has at most 4 decimal places: snap to that first, then floor.
+ */
 function floorPounds(amount: number): number {
-  return Math.floor(Math.round(amount * 100) / 100);
+  return Math.floor(Math.round(amount * 10_000) / 10_000);
 }
 
 export interface Split { plan: PlanId; amount: number }
